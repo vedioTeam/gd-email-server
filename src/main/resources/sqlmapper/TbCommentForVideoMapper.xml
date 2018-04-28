@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbCommentForVideoMapper">
+  <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="videoID" jdbcType="INTEGER" property="videoid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="commentTime" jdbcType="VARCHAR" property="commenttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, videoID, userID, content, commentTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_commentForVideo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_commentForVideo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
+    insert into tb_commentForVideo (id, videoID, userID, 
+      content, commentTime)
+    values (#{id,jdbcType=INTEGER}, #{videoid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{commenttime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
+    insert into tb_commentForVideo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="videoid != null">
+        videoID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="commenttime != null">
+        commentTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="videoid != null">
+        #{videoid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commenttime != null">
+        #{commenttime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
+    update tb_commentForVideo
+    <set>
+      <if test="videoid != null">
+        videoID = #{videoid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commenttime != null">
+        commentTime = #{commenttime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
+    update tb_commentForVideo
+    set videoID = #{videoid,jdbcType=INTEGER},
+      userID = #{userid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      commentTime = #{commenttime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
