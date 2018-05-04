@@ -1,15 +1,15 @@
 package com.sam.graduation.design.gdemailserver.model.pojo;
 
-public class TbCommentForVideo {
+import java.util.Date;
+
+public class TbCollection {
     private Long id;
 
     private Long videoid;
 
     private Long userid;
 
-    private String content;
-
-    private String commenttime;
+    private Date collectiontime;
 
     public Long getId() {
         return id;
@@ -35,19 +35,11 @@ public class TbCommentForVideo {
         this.userid = userid;
     }
 
-    public String getContent() {
-        return content;
+    public Date getCollectiontime() {
+        return collectiontime;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public String getCommenttime() {
-        return commenttime;
-    }
-
-    public void setCommenttime(String commenttime) {
-        this.commenttime = commenttime == null ? null : commenttime.trim();
+    public void setCollectiontime(Date collectiontime) {
+        this.collectiontime = collectiontime;
     }
 }

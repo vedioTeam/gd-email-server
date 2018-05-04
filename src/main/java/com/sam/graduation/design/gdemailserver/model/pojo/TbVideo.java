@@ -1,9 +1,11 @@
 package com.sam.graduation.design.gdemailserver.model.pojo;
 
-public class TbVideo {
-    private Integer videoid;
+import java.util.Date;
 
-    private Integer userid;
+public class TbVideo {
+    private Long videoid;
+
+    private Long userid;
 
     private String videourl;
 
@@ -11,19 +13,25 @@ public class TbVideo {
 
     private String videotitle;
 
-    public Integer getVideoid() {
+    private Integer videowatch;
+
+    private String videointroduce;
+
+    private Date videocreattime;
+
+    public Long getVideoid() {
         return videoid;
     }
 
-    public void setVideoid(Integer videoid) {
+    public void setVideoid(Long videoid) {
         this.videoid = videoid;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
 
@@ -49,5 +57,29 @@ public class TbVideo {
 
     public void setVideotitle(String videotitle) {
         this.videotitle = videotitle == null ? null : videotitle.trim();
+    }
+
+    public Integer getVideowatch() {
+        return videowatch;
+    }
+
+    public void setVideowatch(Integer videowatch) {
+        this.videowatch = videowatch;
+    }
+
+    public String getVideointroduce() {
+        return videointroduce;
+    }
+
+    public void setVideointroduce(String videointroduce) {
+        this.videointroduce = videointroduce == null ? null : videointroduce.trim();
+    }
+
+    public Date getVideocreattime() {
+        return videocreattime;
+    }
+
+    public void setVideocreattime(Date videocreattime) {
+        this.videocreattime = videocreattime;
     }
 }

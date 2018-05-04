@@ -1,21 +1,27 @@
 package com.sam.graduation.design.gdemailserver.model.pojo;
 
+import java.util.Date;
+
 public class TbUser {
-    private Integer id;
+    private Long id;
 
     private String username;
 
     private Integer age;
 
-    private String ctm;
+    private Date ctm;
 
     private Byte sex;
 
-    public Integer getId() {
+    private String password;
+
+    private String image;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,12 +41,12 @@ public class TbUser {
         this.age = age;
     }
 
-    public String getCtm() {
+    public Date getCtm() {
         return ctm;
     }
 
-    public void setCtm(String ctm) {
-        this.ctm = ctm == null ? null : ctm.trim();
+    public void setCtm(Date ctm) {
+        this.ctm = ctm;
     }
 
     public Byte getSex() {
@@ -49,5 +55,21 @@ public class TbUser {
 
     public void setSex(Byte sex) {
         this.sex = sex;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image == null ? null : image.trim();
     }
 }

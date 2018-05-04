@@ -3,13 +3,13 @@ package com.sam.graduation.design.gdemailserver.dao;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo;
 
 public interface TbCommentForVideoMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(TbCommentForVideo record);
 
     int insertSelective(TbCommentForVideo record);
 
-    TbCommentForVideo selectByPrimaryKey(Integer id);
+    TbCommentForVideo selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(TbCommentForVideo record);
 

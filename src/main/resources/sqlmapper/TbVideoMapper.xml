@@ -2,30 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbVideoMapper">
   <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbVideo">
-    <id column="videoID" jdbcType="INTEGER" property="videoid" />
-    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <id column="videoID" jdbcType="BIGINT" property="videoid" />
+    <result column="userID" jdbcType="BIGINT" property="userid" />
     <result column="videoURL" jdbcType="VARCHAR" property="videourl" />
     <result column="videoImage" jdbcType="VARCHAR" property="videoimage" />
     <result column="videoTitle" jdbcType="VARCHAR" property="videotitle" />
+    <result column="videoWatch" jdbcType="INTEGER" property="videowatch" />
+    <result column="videoIntroduce" jdbcType="VARCHAR" property="videointroduce" />
+    <result column="videoCreatTime" jdbcType="TIMESTAMP" property="videocreattime" />
   </resultMap>
   <sql id="Base_Column_List">
-    videoID, userID, videoURL, videoImage, videoTitle
+    videoID, userID, videoURL, videoImage, videoTitle, videoWatch, videoIntroduce, videoCreatTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_video
-    where videoID = #{videoid,jdbcType=INTEGER}
+    where videoID = #{videoid,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tb_video
-    where videoID = #{videoid,jdbcType=INTEGER}
+    where videoID = #{videoid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbVideo">
     insert into tb_video (videoID, userID, videoURL, 
-      videoImage, videoTitle)
-    values (#{videoid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{videourl,jdbcType=VARCHAR}, 
-      #{videoimage,jdbcType=VARCHAR}, #{videotitle,jdbcType=VARCHAR})
+      videoImage, videoTitle, videoWatch, 
+      videoIntroduce, videoCreatTime)
+    values (#{videoid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{videourl,jdbcType=VARCHAR}, 
+      #{videoimage,jdbcType=VARCHAR}, #{videotitle,jdbcType=VARCHAR}, #{videowatch,jdbcType=INTEGER}, 
+      #{videointroduce,jdbcType=VARCHAR}, #{videocreattime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbVideo">
     insert into tb_video
@@ -45,13 +50,22 @@
       <if test="videotitle != null">
         videoTitle,
       </if>
+      <if test="videowatch != null">
+        videoWatch,
+      </if>
+      <if test="videointroduce != null">
+        videoIntroduce,
+      </if>
+      <if test="videocreattime != null">
+        videoCreatTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="videoid != null">
-        #{videoid,jdbcType=INTEGER},
+        #{videoid,jdbcType=BIGINT},
       </if>
       <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=BIGINT},
       </if>
       <if test="videourl != null">
         #{videourl,jdbcType=VARCHAR},
@@ -62,13 +76,22 @@
       <if test="videotitle != null">
         #{videotitle,jdbcType=VARCHAR},
       </if>
+      <if test="videowatch != null">
+        #{videowatch,jdbcType=INTEGER},
+      </if>
+      <if test="videointroduce != null">
+        #{videointroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="videocreattime != null">
+        #{videocreattime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbVideo">
     update tb_video
     <set>
       <if test="userid != null">
-        userID = #{userid,jdbcType=INTEGER},
+        userID = #{userid,jdbcType=BIGINT},
       </if>
       <if test="videourl != null">
         videoURL = #{videourl,jdbcType=VARCHAR},
@@ -79,21 +102,27 @@
       <if test="videotitle != null">
         videoTitle = #{videotitle,jdbcType=VARCHAR},
       </if>
+      <if test="videowatch != null">
+        videoWatch = #{videowatch,jdbcType=INTEGER},
+      </if>
+      <if test="videointroduce != null">
+        videoIntroduce = #{videointroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="videocreattime != null">
+        videoCreatTime = #{videocreattime,jdbcType=TIMESTAMP},
+      </if>
     </set>
-    where videoID = #{videoid,jdbcType=INTEGER}
+    where videoID = #{videoid,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbVideo">
     update tb_video
-    set userID = #{userid,jdbcType=INTEGER},
+    set userID = #{userid,jdbcType=BIGINT},
       videoURL = #{videourl,jdbcType=VARCHAR},
       videoImage = #{videoimage,jdbcType=VARCHAR},
-      videoTitle = #{videotitle,jdbcType=VARCHAR}
-    where videoID = #{videoid,jdbcType=INTEGER}
+      videoTitle = #{videotitle,jdbcType=VARCHAR},
+      videoWatch = #{videowatch,jdbcType=INTEGER},
+      videoIntroduce = #{videointroduce,jdbcType=VARCHAR},
+      videoCreatTime = #{videocreattime,jdbcType=TIMESTAMP}
+    where videoID = #{videoid,jdbcType=BIGINT}
   </update>
-
-  <select id="selectAllTbVideo" resultMap="BaseResultMap">
-    SELECT *
-    FROM tb_video
-  </select>
-
 </mapper>

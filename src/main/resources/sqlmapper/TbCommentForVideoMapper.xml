@@ -2,29 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbCommentForVideoMapper">
   <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="videoID" jdbcType="INTEGER" property="videoid" />
-    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="videoID" jdbcType="BIGINT" property="videoid" />
+    <result column="userID" jdbcType="BIGINT" property="userid" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="commentTime" jdbcType="VARCHAR" property="commenttime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, videoID, userID, content, commentTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_commentForVideo
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tb_commentForVideo
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
     insert into tb_commentForVideo (id, videoID, userID, 
       content, commentTime)
-    values (#{id,jdbcType=INTEGER}, #{videoid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{videoid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
       #{content,jdbcType=VARCHAR}, #{commenttime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
@@ -48,13 +48,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="videoid != null">
-        #{videoid,jdbcType=INTEGER},
+        #{videoid,jdbcType=BIGINT},
       </if>
       <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
@@ -68,10 +68,10 @@
     update tb_commentForVideo
     <set>
       <if test="videoid != null">
-        videoID = #{videoid,jdbcType=INTEGER},
+        videoID = #{videoid,jdbcType=BIGINT},
       </if>
       <if test="userid != null">
-        userID = #{userid,jdbcType=INTEGER},
+        userID = #{userid,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
@@ -80,14 +80,14 @@
         commentTime = #{commenttime,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
     update tb_commentForVideo
-    set videoID = #{videoid,jdbcType=INTEGER},
-      userID = #{userid,jdbcType=INTEGER},
+    set videoID = #{videoid,jdbcType=BIGINT},
+      userID = #{userid,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},
       commentTime = #{commenttime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

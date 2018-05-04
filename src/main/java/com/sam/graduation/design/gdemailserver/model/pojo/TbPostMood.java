@@ -1,7 +1,7 @@
 package com.sam.graduation.design.gdemailserver.model.pojo;
 
 public class TbPostMood {
-    private Integer id;
+    private Long id;
 
     private String content;
 
@@ -11,11 +11,11 @@ public class TbPostMood {
 
     private Integer userid;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

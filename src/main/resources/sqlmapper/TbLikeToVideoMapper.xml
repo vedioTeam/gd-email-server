@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbLikeToVideoMapper">
+  <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userID" jdbcType="BIGINT" property="userid" />
+    <result column="videoID" jdbcType="BIGINT" property="videoid" />
+    <result column="creatTime" jdbcType="TIMESTAMP" property="creattime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userID, videoID, creatTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_likeToVideo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_likeToVideo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo">
+    insert into tb_likeToVideo (id, userID, videoID, 
+      creatTime)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{videoid,jdbcType=BIGINT}, 
+      #{creattime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo">
+    insert into tb_likeToVideo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="videoid != null">
+        videoID,
+      </if>
+      <if test="creattime != null">
+        creatTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="videoid != null">
+        #{videoid,jdbcType=BIGINT},
+      </if>
+      <if test="creattime != null">
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo">
+    update tb_likeToVideo
+    <set>
+      <if test="userid != null">
+        userID = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="videoid != null">
+        videoID = #{videoid,jdbcType=BIGINT},
+      </if>
+      <if test="creattime != null">
+        creatTime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo">
+    update tb_likeToVideo
+    set userID = #{userid,jdbcType=BIGINT},
+      videoID = #{videoid,jdbcType=BIGINT},
+      creatTime = #{creattime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbPostMoodMapper">
   <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="creatTime" jdbcType="VARCHAR" property="creattime" />
     <result column="imageUrl" jdbcType="VARCHAR" property="imageurl" />
@@ -11,20 +11,20 @@
   <sql id="Base_Column_List">
     id, content, creatTime, imageUrl, userID
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_postMood
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tb_postMood
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     insert into tb_postMood (id, content, creatTime, 
       imageUrl, userID)
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{creattime,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{creattime,jdbcType=VARCHAR}, 
       #{imageurl,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
@@ -48,7 +48,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
@@ -80,7 +80,7 @@
         userID = #{userid,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     update tb_postMood
@@ -88,6 +88,6 @@
       creatTime = #{creattime,jdbcType=VARCHAR},
       imageUrl = #{imageurl,jdbcType=VARCHAR},
       userID = #{userid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

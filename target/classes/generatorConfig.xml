@@ -39,7 +39,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 
-        <!--&lt;!&ndash; 用户表 &ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash; 用户表 &ndash;&gt;&ndash;&gt;-->
         <!--<table schema="springboot-test" tableName="tb_commentForVideo" domainObjectName="TbCommentForVideo"-->
                <!--enableCountByExample="false"-->
                <!--enableUpdateByExample="false"-->
@@ -71,6 +71,43 @@
                <!--enableSelectByExample="false"-->
                <!--selectByExampleQueryId="false">-->
         <!--</table>-->
+
+
+        <!--<table schema="springboot-test" tableName="tb_collection" domainObjectName="TbCollection"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="springboot-test" tableName="tb_likeToComment" domainObjectName="TbLikeToComment"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="springboot-test" tableName="tb_likeToUser" domainObjectName="TbLikeToUser"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
+
+        <!--<table schema="springboot-test" tableName="tb_likeToVideo" domainObjectName="TbLikeToVideo"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+        <!--</table>-->
+
 
     </context>
 </generatorConfiguration>
