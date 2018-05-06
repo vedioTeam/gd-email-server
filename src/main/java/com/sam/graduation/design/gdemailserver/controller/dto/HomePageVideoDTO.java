@@ -12,6 +12,8 @@ public class HomePageVideoDTO {
 
     private Boolean isCollection;
 
+    private Boolean isLike;
+
     public TbVideoDTO getTbVideoDTO() {
         return tbVideoDTO;
     }
@@ -34,5 +36,13 @@ public class HomePageVideoDTO {
 
     public void setCollection(Boolean collection) {
         isCollection = collection;
+    }
+
+    public Boolean getLike() {
+        return isLike;
+    }
+
+    public void setLike(Boolean like) {
+        isLike = like;
     }
 }

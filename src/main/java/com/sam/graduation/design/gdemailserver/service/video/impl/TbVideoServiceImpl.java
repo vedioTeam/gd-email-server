@@ -6,9 +6,11 @@ import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO
 import com.sam.graduation.design.gdemailserver.controller.pub.AppException;
 import com.sam.graduation.design.gdemailserver.dao.TbCollectionMapper;
 import com.sam.graduation.design.gdemailserver.dao.TbCommentForVideoMapper;
+import com.sam.graduation.design.gdemailserver.dao.TbLikeToVideoMapper;
 import com.sam.graduation.design.gdemailserver.dao.TbVideoMapper;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbCollection;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo;
+import com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbVideo;
 import com.sam.graduation.design.gdemailserver.service.base.BaseService;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
@@ -45,6 +47,9 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
     @Autowired
     private TbCollectionMapper tbCollectionMapper;
+
+    @Autowired
+    private TbLikeToVideoMapper tbLikeToVideoMapper;
 
     @Override
     @Transactional
@@ -105,6 +110,13 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
                 homePageVideoDTO.setCollection(false);
             } else {
                 homePageVideoDTO.setCollection(true);
+            }
+
+            TbLikeToVideo tbLikeToVideo = this.tbLikeToVideoMapper.selectByVideoIdAndUserId(userId, tbVideo.getVideoid());
+            if (tbLikeToVideo == null) {
+                homePageVideoDTO.setLike(false);
+            } else {
+                homePageVideoDTO.setLike(true);
             }
 
             homePageVideoDTOS.add(homePageVideoDTO);
