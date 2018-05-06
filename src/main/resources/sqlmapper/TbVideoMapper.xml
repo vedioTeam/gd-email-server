@@ -125,4 +125,9 @@
       videoCreatTime = #{videocreattime,jdbcType=TIMESTAMP}
     where videoID = #{videoid,jdbcType=BIGINT}
   </update>
+  <select id="selectHomePageVideo" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List"/>
+    from tb_video
+  </select>
 </mapper>
