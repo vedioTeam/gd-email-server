@@ -29,7 +29,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
     private static final String FILE_SEPARATOR = File.separator;
 
-    @Value("url.link.path")
+    @Value("${url.link.path}")
     private String urlLinkPath;
 
     @Value("${file.root.path}")
