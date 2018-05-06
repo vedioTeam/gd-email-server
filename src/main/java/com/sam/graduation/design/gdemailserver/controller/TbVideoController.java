@@ -1,5 +1,6 @@
 package com.sam.graduation.design.gdemailserver.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.sam.graduation.design.gdemailserver.constvalue.ServiceResultType;
 import com.sam.graduation.design.gdemailserver.controller.base.BaseController;
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
@@ -60,6 +61,7 @@ public class TbVideoController extends BaseController {
         tbVideoDTO.setVideointroduce(introduce);
         tbVideoDTO.setVideowatch((int) (Math.random() * 200));
         tbVideoDTO.setVideocreattime(new Date());
+
 
         String videoOraName = video.getOriginalFilename();
         String videoFormat = videoOraName.toLowerCase().substring(videoOraName.lastIndexOf("."), videoOraName.length())
