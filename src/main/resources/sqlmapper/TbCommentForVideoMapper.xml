@@ -6,7 +6,7 @@
     <result column="videoID" jdbcType="BIGINT" property="videoid" />
     <result column="userID" jdbcType="BIGINT" property="userid" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="commentTime" jdbcType="VARCHAR" property="commenttime" />
+    <result column="commentTime" jdbcType="TIMESTAMP" property="commenttime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, videoID, userID, content, commentTime
@@ -25,7 +25,7 @@
     insert into tb_commentForVideo (id, videoID, userID, 
       content, commentTime)
     values (#{id,jdbcType=BIGINT}, #{videoid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, 
-      #{content,jdbcType=VARCHAR}, #{commenttime,jdbcType=VARCHAR})
+      #{content,jdbcType=VARCHAR}, #{commenttime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo">
     insert into tb_commentForVideo
@@ -60,7 +60,7 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="commenttime != null">
-        #{commenttime,jdbcType=VARCHAR},
+        #{commenttime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -77,7 +77,7 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="commenttime != null">
-        commentTime = #{commenttime,jdbcType=VARCHAR},
+        commentTime = #{commenttime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -87,12 +87,7 @@
     set videoID = #{videoid,jdbcType=BIGINT},
       userID = #{userid,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},
-      commentTime = #{commenttime,jdbcType=VARCHAR}
+      commentTime = #{commenttime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByVideoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select *
-    from tb_commentForVideo
-    where videoID = #{videoid,jdbcType=BIGINT}
-  </select>
 </mapper>

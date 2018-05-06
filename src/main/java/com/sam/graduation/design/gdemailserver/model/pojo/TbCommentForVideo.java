@@ -1,5 +1,7 @@
 package com.sam.graduation.design.gdemailserver.model.pojo;
 
+import java.util.Date;
+
 public class TbCommentForVideo {
     private Long id;
 
@@ -9,7 +11,7 @@ public class TbCommentForVideo {
 
     private String content;
 
-    private String commenttime;
+    private Date commenttime;
 
     public Long getId() {
         return id;
@@ -43,11 +45,11 @@ public class TbCommentForVideo {
         this.content = content == null ? null : content.trim();
     }
 
-    public String getCommenttime() {
+    public Date getCommenttime() {
         return commenttime;
     }
 
-    public void setCommenttime(String commenttime) {
-        this.commenttime = commenttime == null ? null : commenttime.trim();
+    public void setCommenttime(Date commenttime) {
+        this.commenttime = commenttime;
     }
 }
