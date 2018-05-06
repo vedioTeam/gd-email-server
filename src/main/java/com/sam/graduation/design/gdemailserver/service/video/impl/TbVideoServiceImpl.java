@@ -203,9 +203,9 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
             tbCommentForVideoDTO.setTbUserDTO(tbUserDTO);
 
-            i--;
-
             tbCommentForVideoDTO.setNumberOfFloor(i);
+
+            i--;
 
             List<TbLikeToComment> tbLikeToComments = this.tbLikeToCommentMapper.selectByCommentId(tbCommentForVideo.getId());
             tbCommentForVideoDTO.setNumberOfLikeComment(tbLikeToComments.size());
