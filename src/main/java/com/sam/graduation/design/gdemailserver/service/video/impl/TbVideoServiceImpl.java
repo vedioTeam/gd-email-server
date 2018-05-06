@@ -189,7 +189,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
             return tbCommentForVideoDTOS;
         }
 
-        int i = tbCommentForVideoDTOS.size();
+        int i = tbCommentForVideos.size();
 
         for (TbCommentForVideo tbCommentForVideo : tbCommentForVideos) {
             TbCommentForVideoDTO tbCommentForVideoDTO = new TbCommentForVideoDTO();
