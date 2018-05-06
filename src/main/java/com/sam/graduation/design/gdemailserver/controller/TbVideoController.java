@@ -113,7 +113,9 @@ public class TbVideoController extends BaseController {
 
     @ApiOperation("首页视屏接口")
     @GetMapping("/home/page/videos/@get")
-    public Map<String, Object> getHomePageVideos(Long userId) {
+    public Map<String, Object> getHomePageVideos(
+            @RequestParam("userId") Long userId
+    ) {
         List<HomePageVideoDTO> homePageVideoDTOS  =  null;
 
         try {
