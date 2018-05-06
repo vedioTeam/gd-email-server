@@ -189,7 +189,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
             return tbCommentForVideoDTOS;
         }
 
-        int i = 0;
+        int i = tbCommentForVideoDTOS.size();
 
         for (TbCommentForVideo tbCommentForVideo : tbCommentForVideos) {
             TbCommentForVideoDTO tbCommentForVideoDTO = new TbCommentForVideoDTO();
@@ -203,7 +203,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
             tbCommentForVideoDTO.setTbUserDTO(tbUserDTO);
 
-            i++;
+            i--;
 
             tbCommentForVideoDTO.setNumberOfFloor(i);
 
