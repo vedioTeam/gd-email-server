@@ -124,7 +124,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
             TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(tbVideo.getUserid());
             TbUserDTO tbUserDTO = new TbUserDTO();
             tbUserDTO.from(tbUser);
-            tbUserDTO.setImage(fileRootPath + FILE_SEPARATOR + tbUser.getImage());
+            tbUserDTO.setImage(urlLinkPath + FILE_SEPARATOR + tbUser.getImage());
 
             List<TbFriends> erFriends = this.tbFriendsMapper.selectByUseredId(tbVideo.getUserid());
 
