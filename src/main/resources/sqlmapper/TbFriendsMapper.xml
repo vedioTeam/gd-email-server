@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sam.graduation.design.gdemailserver.dao.TbFriendsMapper">
+  <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbFriends">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="usererId" jdbcType="BIGINT" property="usererid" />
+    <result column="useredId" jdbcType="BIGINT" property="useredid" />
+    <result column="focustime" jdbcType="TIMESTAMP" property="focustime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, usererId, useredId, focustime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_friends
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_friends
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbFriends">
+    insert into tb_friends (id, usererId, useredId, 
+      focustime)
+    values (#{id,jdbcType=BIGINT}, #{usererid,jdbcType=BIGINT}, #{useredid,jdbcType=BIGINT}, 
+      #{focustime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbFriends">
+    insert into tb_friends
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="usererid != null">
+        usererId,
+      </if>
+      <if test="useredid != null">
+        useredId,
+      </if>
+      <if test="focustime != null">
+        focustime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="usererid != null">
+        #{usererid,jdbcType=BIGINT},
+      </if>
+      <if test="useredid != null">
+        #{useredid,jdbcType=BIGINT},
+      </if>
+      <if test="focustime != null">
+        #{focustime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbFriends">
+    update tb_friends
+    <set>
+      <if test="usererid != null">
+        usererId = #{usererid,jdbcType=BIGINT},
+      </if>
+      <if test="useredid != null">
+        useredId = #{useredid,jdbcType=BIGINT},
+      </if>
+      <if test="focustime != null">
+        focustime = #{focustime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbFriends">
+    update tb_friends
+    set usererId = #{usererid,jdbcType=BIGINT},
+      useredId = #{useredid,jdbcType=BIGINT},
+      focustime = #{focustime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
