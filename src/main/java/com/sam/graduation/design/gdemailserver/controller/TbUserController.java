@@ -50,6 +50,8 @@ public class TbUserController extends BaseController {
     ) {
         MessageDTO messageDTO = null;
 
+        tbUserDTO.setImage("");
+
         try {
             messageDTO = this.tbUserService.userRegister(tbUserDTO);
         } catch (Exception e) {
@@ -77,7 +79,7 @@ public class TbUserController extends BaseController {
             logger.error("e:{}", e);
         }
         if (userDTO == null) {
-            return this.error("登录异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+            return this.error("登录失败", ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
         }
         return this.success(userDTO);
 
