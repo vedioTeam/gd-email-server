@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.sam.graduation.design.gdemailserver.constvalue.ServiceResultType;
 import com.sam.graduation.design.gdemailserver.controller.base.BaseController;
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
+import com.sam.graduation.design.gdemailserver.controller.dto.TbCommentForVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
@@ -14,10 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -82,15 +80,15 @@ public class TbVideoController extends BaseController {
         String imageOraName = image.getOriginalFilename();
         String imageFormat = imageOraName.toLowerCase().substring(imageOraName.lastIndexOf("."), imageOraName.length())
                 .toLowerCase();
-        String imageRelPath = "video"+FILE_SEPARATOR+"image"+ FILE_SEPARATOR + GDMSFileUtils.getTimePath()
-                +FILE_SEPARATOR+userId+ FILE_SEPARATOR + UUIDUtil.getUUIDWithoutLine() + imageFormat;
+        String imageRelPath = "video" + FILE_SEPARATOR + "image" + FILE_SEPARATOR + GDMSFileUtils.getTimePath()
+                + FILE_SEPARATOR + userId + FILE_SEPARATOR + UUIDUtil.getUUIDWithoutLine() + imageFormat;
 
-        File imageFile = Paths.get(fileRootPath , imageRelPath).toFile();
+        File imageFile = Paths.get(fileRootPath, imageRelPath).toFile();
 
         try {
             FileUtils.copyToFile(image.getInputStream(), imageFile);
         } catch (IOException e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
 
         tbVideoDTO.setVideoimage(imageRelPath);
@@ -98,7 +96,7 @@ public class TbVideoController extends BaseController {
         try {
             messageDTO = this.tbVideoService.uploadVideo(tbVideoDTO);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
 
         if (messageDTO == null) {
@@ -116,12 +114,12 @@ public class TbVideoController extends BaseController {
     public Map<String, Object> getHomePageVideos(
             @RequestParam("userId") Long userId
     ) {
-        List<HomePageVideoDTO> homePageVideoDTOS  =  null;
+        List<HomePageVideoDTO> homePageVideoDTOS = null;
 
         try {
             homePageVideoDTOS = this.tbVideoService.getHomePageVideo(userId);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
 
         if (homePageVideoDTOS == null || homePageVideoDTOS.size() == 0) {
@@ -129,6 +127,29 @@ public class TbVideoController extends BaseController {
             return this.success(homePageVideoDTOS);
         }
         return this.success(homePageVideoDTOS);
+    }
+
+    @ApiOperation("评论视频")
+    @PostMapping("/tb/video/@comment")
+    public Map<String, Object> commentTbVideo(
+            @RequestBody TbCommentForVideoDTO tbCommentForVideoDTO
+    ) {
+
+        MessageDTO messageDTO = null;
+        tbCommentForVideoDTO.setCommenttime(new Date());
+        try {
+            messageDTO = this.tbVideoService.commentVideo(tbCommentForVideoDTO);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+
     }
 
 }

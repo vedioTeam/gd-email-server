@@ -1,6 +1,7 @@
 package com.sam.graduation.design.gdemailserver.service.video;
 
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
+import com.sam.graduation.design.gdemailserver.controller.dto.TbCommentForVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 
@@ -15,5 +16,7 @@ public interface TbVideoService {
     MessageDTO uploadVideo(TbVideoDTO tbVideoDTO);
 
     List<HomePageVideoDTO> getHomePageVideo(Long userId);
+
+    MessageDTO commentVideo(TbCommentForVideoDTO tbCommentForVideoDTO);
 
 }

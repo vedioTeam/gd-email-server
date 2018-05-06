@@ -1,6 +1,7 @@
 package com.sam.graduation.design.gdemailserver.service.video.impl;
 
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
+import com.sam.graduation.design.gdemailserver.controller.dto.TbCommentForVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbUserDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
@@ -148,5 +149,32 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
         return homePageVideoDTOS;
     }
+
+    @Override
+    @Transactional
+    public MessageDTO commentVideo(TbCommentForVideoDTO tbCommentForVideoDTO) {
+
+        MessageDTO messageDTO = new MessageDTO();
+
+        TbCommentForVideo tbCommentForVideo = tbCommentForVideoDTO.to();
+        int result = 0;
+        try {
+            result = this.tbCommentForVideoMapper.insertSelective(tbCommentForVideo);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+            throw new AppException("评论异常");
+        }
+
+        if (result == 0) {
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("评论失败");
+            return messageDTO;
+        }
+
+        messageDTO.setSuccess(true);
+        messageDTO.setMessage("评论成功");
+        return messageDTO;
+    }
+
 
 }

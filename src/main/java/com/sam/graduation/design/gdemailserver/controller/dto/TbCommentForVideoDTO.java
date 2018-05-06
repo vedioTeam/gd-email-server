@@ -18,12 +18,54 @@ public class TbCommentForVideoDTO {
 
     private String content;
 
-    private String commenttime;
+    private Date commenttime;
+
+    private TbUserDTO tbUserDTO;
+
+    private Boolean isLikeComment;
+
+    private Integer numberOfLikeComment;
+
+    public TbUserDTO getTbUserDTO() {
+        return tbUserDTO;
+    }
+
+    public void setTbUserDTO(TbUserDTO tbUserDTO) {
+        this.tbUserDTO = tbUserDTO;
+    }
+
+    public Boolean getLikeComment() {
+        return isLikeComment;
+    }
+
+    public void setLikeComment(Boolean likeComment) {
+        isLikeComment = likeComment;
+    }
+
+    public Integer getNumberOfLikeComment() {
+        return numberOfLikeComment;
+    }
+
+    public void setNumberOfLikeComment(Integer numberOfLikeComment) {
+        this.numberOfLikeComment = numberOfLikeComment;
+    }
 
     public TbCommentForVideo to() {
         TbCommentForVideo tbCommentForVideo = new TbCommentForVideo();
         tbCommentForVideo.setId(this.id);
-//        tbCommentForVideo.setCommenttime(new Date());
+        tbCommentForVideo.setCommenttime(new Date());
+        tbCommentForVideo.setContent(this.content);
+        tbCommentForVideo.setUserid(this.userid);
+        tbCommentForVideo.setVideoid(this.videoid);
+        return tbCommentForVideo;
+    }
+
+    public void from(TbCommentForVideo tbCommentForVideo) {
+        this.id = tbCommentForVideo.getId();
+        this.videoid = tbCommentForVideo.getVideoid();
+        this.userid = tbCommentForVideo.getUserid();
+        this.content = tbCommentForVideo.getContent();
+        this.commenttime = tbCommentForVideo.getCommenttime();
     }
 
     public Long getId() {
@@ -58,11 +100,11 @@ public class TbCommentForVideoDTO {
         this.content = content;
     }
 
-    public String getCommenttime() {
+    public Date getCommenttime() {
         return commenttime;
     }
 
-    public void setCommenttime(String commenttime) {
+    public void setCommenttime(Date commenttime) {
         this.commenttime = commenttime;
     }
 }
