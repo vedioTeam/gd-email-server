@@ -24,6 +24,10 @@ public class TbUserDTO {
 
     private String image;
 
+    private Integer focusers;
+
+    private Integer focuseds;
+
     public Long getId() {
         return id;
     }
@@ -80,6 +84,22 @@ public class TbUserDTO {
         this.image = image;
     }
 
+    public Integer getFocusers() {
+        return focusers;
+    }
+
+    public void setFocusers(Integer focusers) {
+        this.focusers = focusers;
+    }
+
+    public Integer getFocuseds() {
+        return focuseds;
+    }
+
+    public void setFocuseds(Integer focuseds) {
+        this.focuseds = focuseds;
+    }
+
     public TbUser to() {
         TbUser tbUser = new TbUser();
 
@@ -103,5 +123,4 @@ public class TbUserDTO {
         this.sex = tbUser.getSex();
         this.username = tbUser.getUsername();
     }
-
 }

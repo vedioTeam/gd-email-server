@@ -1,19 +1,15 @@
 package com.sam.graduation.design.gdemailserver.service.video.impl;
 
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
+import com.sam.graduation.design.gdemailserver.controller.dto.TbUserDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 import com.sam.graduation.design.gdemailserver.controller.pub.AppException;
-import com.sam.graduation.design.gdemailserver.dao.TbCollectionMapper;
-import com.sam.graduation.design.gdemailserver.dao.TbCommentForVideoMapper;
-import com.sam.graduation.design.gdemailserver.dao.TbLikeToVideoMapper;
-import com.sam.graduation.design.gdemailserver.dao.TbVideoMapper;
-import com.sam.graduation.design.gdemailserver.model.pojo.TbCollection;
-import com.sam.graduation.design.gdemailserver.model.pojo.TbCommentForVideo;
-import com.sam.graduation.design.gdemailserver.model.pojo.TbLikeToVideo;
-import com.sam.graduation.design.gdemailserver.model.pojo.TbVideo;
+import com.sam.graduation.design.gdemailserver.dao.*;
+import com.sam.graduation.design.gdemailserver.model.pojo.*;
 import com.sam.graduation.design.gdemailserver.service.base.BaseService;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -50,6 +46,12 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
     @Autowired
     private TbLikeToVideoMapper tbLikeToVideoMapper;
+
+    @Autowired
+    private TbUserMapper tbUserMapper;
+
+    @Autowired
+    private TbFriendsMapper tbFriendsMapper;
 
     @Override
     @Transactional
@@ -89,11 +91,11 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
         List<TbVideo> tbVideos = this.tbVideoMapper.selectHomePageVideo();
 
-        if (tbVideos == null|| tbVideos.size()==0) {
+        if (tbVideos == null || tbVideos.size() == 0) {
             return homePageVideoDTOS;
         }
 
-        for (TbVideo tbVideo: tbVideos) {
+        for (TbVideo tbVideo : tbVideos) {
             HomePageVideoDTO homePageVideoDTO = new HomePageVideoDTO();
 
             TbVideoDTO tbVideoDTO = new TbVideoDTO();
@@ -118,6 +120,20 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
             } else {
                 homePageVideoDTO.setLike(true);
             }
+
+            TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(tbVideo.getUserid());
+            TbUserDTO tbUserDTO = new TbUserDTO();
+            tbUserDTO.from(tbUser);
+            tbUserDTO.setImage(fileRootPath + FILE_SEPARATOR + tbUser.getImage());
+
+            List<TbFriends> erFriends = this.tbFriendsMapper.selectByUseredId(tbVideo.getUserid());
+
+            List<TbFriends> edFriends = this.tbFriendsMapper.selectByUsererId(tbVideo.getUserid());
+
+            tbUserDTO.setFocusers(erFriends.size());
+            tbUserDTO.setFocuseds(edFriends.size());
+
+            homePageVideoDTO.setTbUserDTO(tbUserDTO);
 
             homePageVideoDTOS.add(homePageVideoDTO);
         }

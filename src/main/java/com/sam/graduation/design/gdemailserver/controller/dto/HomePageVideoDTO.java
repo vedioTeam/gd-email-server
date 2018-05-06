@@ -14,6 +14,8 @@ public class HomePageVideoDTO {
 
     private Boolean isLike;
 
+    private TbUserDTO tbUserDTO;
+
     public TbVideoDTO getTbVideoDTO() {
         return tbVideoDTO;
     }
@@ -44,5 +46,13 @@ public class HomePageVideoDTO {
 
     public void setLike(Boolean like) {
         isLike = like;
+    }
+
+    public TbUserDTO getTbUserDTO() {
+        return tbUserDTO;
+    }
+
+    public void setTbUserDTO(TbUserDTO tbUserDTO) {
+        this.tbUserDTO = tbUserDTO;
     }
 }
