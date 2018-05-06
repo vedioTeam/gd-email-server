@@ -2,6 +2,7 @@ package com.sam.graduation.design.gdemailserver.controller;
 
 import com.sam.graduation.design.gdemailserver.constvalue.ServiceResultType;
 import com.sam.graduation.design.gdemailserver.controller.base.BaseController;
+import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,6 +107,24 @@ public class TbVideoController extends BaseController {
         }
         return this.success(messageDTO);
 
+    }
+
+    @ApiOperation("首页视屏接口")
+    @GetMapping("/home/page/videos/@get")
+    public Map<String, Object> getHomePageVideos(Long userId) {
+        List<HomePageVideoDTO> homePageVideoDTOS  =  null;
+
+        try {
+            homePageVideoDTOS = this.tbVideoService.getHomePageVideo(userId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+
+        if (homePageVideoDTOS == null || homePageVideoDTOS.size() == 0) {
+            homePageVideoDTOS = new ArrayList<>();
+            return this.success(homePageVideoDTOS);
+        }
+        return this.success(homePageVideoDTOS);
     }
 
 }
