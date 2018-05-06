@@ -114,4 +114,16 @@
       image = #{image,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectByUserNameAndPassword" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbUser"
+          resultMap="BaseResultMap">
+    select *
+    from tb_user
+    where username = #{username,jdbcType=VARCHAR}
+    and password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select  *
+    from tb_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
 </mapper>
