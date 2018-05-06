@@ -10,6 +10,7 @@ import com.sam.graduation.design.gdemailserver.model.pojo.*;
 import com.sam.graduation.design.gdemailserver.service.base.BaseService;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
 import org.apache.catalina.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -132,6 +133,13 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
             tbUserDTO.setFocusers(erFriends.size());
             tbUserDTO.setFocuseds(edFriends.size());
+
+            TbFriends tbFriends = this.tbFriendsMapper.selectByUsererIdAndUseredId(userId, tbVideo.getUserid());
+            if (tbFriends == null) {
+                tbUserDTO.setFocus(false);
+            } else {
+                tbUserDTO.setFocus(true);
+            }
 
             homePageVideoDTO.setTbUserDTO(tbUserDTO);
 

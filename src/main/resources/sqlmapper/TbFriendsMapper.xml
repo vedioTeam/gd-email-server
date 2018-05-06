@@ -89,4 +89,10 @@
     from tb_friends
     where useredId = #{useredid,jdbcType=BIGINT}
   </select>
+  <select id="selectByUsererIdAndUseredId" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select *
+    from tb_friends
+    where usererId = #{usererid,jdbcType=BIGINT}
+    and useredId = #{useredid,jdbcType=BIGINT}
+  </select>
 </mapper>

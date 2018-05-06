@@ -1,6 +1,7 @@
 package com.sam.graduation.design.gdemailserver.controller.dto;
 
 import com.sam.graduation.design.gdemailserver.model.pojo.TbUser;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.Date;
 
@@ -27,6 +28,16 @@ public class TbUserDTO {
     private Integer focusers;
 
     private Integer focuseds;
+
+    private Boolean isFocus;
+
+    public Boolean getFocus() {
+        return isFocus;
+    }
+
+    public void setFocus(Boolean focus) {
+        isFocus = focus;
+    }
 
     public Long getId() {
         return id;
