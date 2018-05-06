@@ -92,8 +92,8 @@
   </update>
   <select id="selectByVideoId" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select *
-    for tb_commentForVideo
+    from tb_commentForVideo
     where videoID = #{videoid,jdbcType=BIGINT}
-    order  by commentTime desc
+    order by commentTime desc
   </select>
 </mapper>
