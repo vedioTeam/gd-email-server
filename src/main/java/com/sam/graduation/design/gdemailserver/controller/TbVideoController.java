@@ -156,8 +156,8 @@ public class TbVideoController extends BaseController {
     @ApiOperation("获取评论")
     @GetMapping("/tb/video/comment/@get")
     public Map<String, Object> getTbVideoComment(
-            @Param("userId") Long userId,
-            @Param("videoId") Long videoId
+            @RequestParam("userId") Long userId,
+            @RequestParam("videoId") Long videoId
     ) {
         List<TbCommentForVideoDTO> tbCommentForVideoDTOS = new ArrayList<>();
 
