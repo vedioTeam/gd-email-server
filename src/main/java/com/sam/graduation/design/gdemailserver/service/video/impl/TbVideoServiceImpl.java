@@ -50,6 +50,9 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
     private TbLikeToVideoMapper tbLikeToVideoMapper;
 
     @Autowired
+    private TbLikeToCommentMapper tbLikeToCommentMapper;
+
+    @Autowired
     private TbUserMapper tbUserMapper;
 
     @Autowired
@@ -161,7 +164,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
         try {
             result = this.tbCommentForVideoMapper.insertSelective(tbCommentForVideo);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
             throw new AppException("评论异常");
         }
 
@@ -174,6 +177,51 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
         messageDTO.setSuccess(true);
         messageDTO.setMessage("评论成功");
         return messageDTO;
+    }
+
+    @Override
+    public List<TbCommentForVideoDTO> getTbCommentFoeVideo(Long userId, Long videoId) {
+
+        List<TbCommentForVideoDTO> tbCommentForVideoDTOS = new ArrayList<>();
+
+        List<TbCommentForVideo> tbCommentForVideos = this.tbCommentForVideoMapper.selectByVideoId(videoId);
+        if (tbCommentForVideos == null || tbCommentForVideos.size() == 0) {
+            return tbCommentForVideoDTOS;
+        }
+
+        int i = 0;
+
+        for (TbCommentForVideo tbCommentForVideo : tbCommentForVideos) {
+            TbCommentForVideoDTO tbCommentForVideoDTO = new TbCommentForVideoDTO();
+
+            tbCommentForVideoDTO.from(tbCommentForVideo);
+
+            TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(tbCommentForVideo.getUserid());
+            TbUserDTO tbUserDTO = new TbUserDTO();
+            tbUserDTO.from(tbUser);
+            tbUserDTO.setImage(urlLinkPath + FILE_SEPARATOR + tbUser.getImage());
+
+            tbCommentForVideoDTO.setTbUserDTO(tbUserDTO);
+
+            i++;
+
+            tbCommentForVideoDTO.setNumberOfFloor(i);
+
+            List<TbLikeToComment> tbLikeToComments = this.tbLikeToCommentMapper.selectByCommentId(tbCommentForVideo.getId());
+            tbCommentForVideoDTO.setNumberOfLikeComment(tbLikeToComments.size());
+
+            TbLikeToComment tbLikeToComment = this.tbLikeToCommentMapper.selectByCommentAndUserId(tbCommentForVideo.getId(), userId);
+            if (tbLikeToComment == null) {
+                tbCommentForVideoDTO.setLikeComment(false);
+            } else {
+                tbCommentForVideoDTO.setLikeComment(true);
+            }
+
+            tbCommentForVideoDTOS.add(tbCommentForVideoDTO);
+
+        }
+
+        return tbCommentForVideoDTOS;
     }
 
 

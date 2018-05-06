@@ -22,6 +22,8 @@ public class TbCommentForVideoDTO {
 
     private TbUserDTO tbUserDTO;
 
+    private Integer numberOfFloor;
+
     private Boolean isLikeComment;
 
     private Integer numberOfLikeComment;
@@ -106,5 +108,13 @@ public class TbCommentForVideoDTO {
 
     public void setCommenttime(Date commenttime) {
         this.commenttime = commenttime;
+    }
+
+    public Integer getNumberOfFloor() {
+        return numberOfFloor;
+    }
+
+    public void setNumberOfFloor(Integer numberOfFloor) {
+        this.numberOfFloor = numberOfFloor;
     }
 }

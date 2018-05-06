@@ -19,4 +19,6 @@ public interface TbVideoService {
 
     MessageDTO commentVideo(TbCommentForVideoDTO tbCommentForVideoDTO);
 
+    List<TbCommentForVideoDTO> getTbCommentFoeVideo(Long userId, Long videoId);
+
 }

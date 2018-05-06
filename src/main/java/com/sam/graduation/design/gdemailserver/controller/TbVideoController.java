@@ -13,6 +13,7 @@ import com.sam.graduation.design.gdemailserver.utils.UUIDUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -149,6 +150,27 @@ public class TbVideoController extends BaseController {
             return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
         }
         return this.success(messageDTO);
+
+    }
+
+    @ApiOperation("获取评论")
+    @GetMapping("/tb/video/comment/@get")
+    public Map<String, Object> getTbVideoComment(
+            @Param("userId") Long userId,
+            @Param("videoId") Long videoId
+    ) {
+        List<TbCommentForVideoDTO> tbCommentForVideoDTOS = new ArrayList<>();
+
+        try {
+            tbCommentForVideoDTOS = this.tbVideoService.getTbCommentFoeVideo(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}.",e);
+        }
+
+        if (tbCommentForVideoDTOS == null || tbCommentForVideoDTOS.size() == 0) {
+            return this.success(tbCommentForVideoDTOS);
+        }
+        return this.success(tbCommentForVideoDTOS);
 
     }
 

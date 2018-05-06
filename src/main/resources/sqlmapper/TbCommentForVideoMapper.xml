@@ -94,5 +94,6 @@
     select *
     for tb_commentForVideo
     where videoID = #{videoid,jdbcType=BIGINT}
+    order  by commentTime desc
   </select>
 </mapper>
