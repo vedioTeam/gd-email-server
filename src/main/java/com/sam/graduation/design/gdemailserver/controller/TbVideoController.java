@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,11 +42,11 @@ public class TbVideoController extends BaseController {
     @ApiOperation("用户上传视频接口")
     @PostMapping("/tb/video/@upload")
     public Map<String, Object> tbVideoUpload(
-            MultipartFile video,
-            MultipartFile image,
-            Long userId,
-            String title,
-            String introduce
+            @RequestParam("video") MultipartFile video,
+            @RequestParam("image") MultipartFile image,
+            @RequestParam("userId") Long userId,
+            @RequestParam("title") String title,
+            @RequestParam("introduce") String introduce
     ) {
         MessageDTO messageDTO = null;
 
