@@ -90,4 +90,10 @@
     from tb_collection
     where userID = #{userid,jdbcType=BIGINT}
   </select>
+  <delete id="deleteByUserIdAndCommentId" parameterType="java.util.Map">
+    delete from
+    tb_collection
+    where videoID = #{videoId,jdbcType=BIGINT}
+    and userID = #{userId,jdbcType=BIGINT}
+  </delete>
 </mapper>

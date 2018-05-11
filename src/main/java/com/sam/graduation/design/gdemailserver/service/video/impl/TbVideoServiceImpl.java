@@ -223,7 +223,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
 
         List<TbCollection> tbCollections = this.tbCollectionMapper.selectByUserId(otherUserId);
 
-        for (TbCollection tc: tbCollections) {
+        for (TbCollection tc : tbCollections) {
             HomePageVideoDTO homePageVideoDTO = new HomePageVideoDTO();
 
             TbVideo tbVideo = this.tbVideoMapper.selectByPrimaryKey(tc.getVideoid());
@@ -347,6 +347,56 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
         }
 
         return tbCommentForVideoDTOS;
+    }
+
+    @Override
+    public MessageDTO collectionVideo(Long userId, Long videoId) {
+        MessageDTO messageDTO = null;
+
+        TbCollection tbCollection = new TbCollection();
+        tbCollection.setCollectiontime(new Date());
+        tbCollection.setUserid(userId);
+        tbCollection.setVideoid(videoId);
+
+        int result = 0;
+        try {
+            result = this.tbCollectionMapper.insertSelective(tbCollection);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("收藏视频异常");
+        }
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("收藏视频失败");
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setSuccess(true);
+        messageDTO.setMessage("收藏视频成功");
+        return null;
+    }
+
+    @Override
+    public MessageDTO unCollectionVideo(Long userId, Long videoId) {
+        MessageDTO messageDTO = null;
+        int result = 0;
+        try {
+            result = this.tbCollectionMapper.deleteByUserIdAndCommentId(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("取消收藏视频异常");
+        }
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("取消收藏视频失败");
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setMessage("取消收藏视频成功");
+        messageDTO.setSuccess(true);
+        return messageDTO;
     }
 
 

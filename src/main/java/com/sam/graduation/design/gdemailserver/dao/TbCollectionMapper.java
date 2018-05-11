@@ -27,4 +27,9 @@ public interface TbCollectionMapper {
             Long userid
     );
 
+    int deleteByUserIdAndCommentId(
+            @Param("userId") Long userId,
+            @Param("videoId") Long videoId
+    );
+
 }

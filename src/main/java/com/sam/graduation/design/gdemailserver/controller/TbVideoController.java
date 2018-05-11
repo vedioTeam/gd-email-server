@@ -141,7 +141,7 @@ public class TbVideoController extends BaseController {
         try {
             messageDTO = this.tbVideoService.commentVideo(tbCommentForVideoDTO);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
         if (messageDTO == null) {
             return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
@@ -164,7 +164,7 @@ public class TbVideoController extends BaseController {
         try {
             tbCommentForVideoDTOS = this.tbVideoService.getTbCommentFoeVideo(userId, videoId);
         } catch (Exception e) {
-            logger.error("e:{}.",e);
+            logger.error("e:{}.", e);
         }
 
         if (tbCommentForVideoDTOS == null || tbCommentForVideoDTOS.size() == 0) {
@@ -172,6 +172,48 @@ public class TbVideoController extends BaseController {
         }
         return this.success(tbCommentForVideoDTOS);
 
+    }
+
+    @ApiOperation("收藏视频")
+    @PostMapping("/tb/video/@collect")
+    public Map<String, Object> collectTbVideo(
+            Long userId,
+            Long videoId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbVideoService.collectionVideo(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+    @ApiOperation("收藏视频")
+    @PostMapping("/tb/video/@uncollect")
+    public Map<String, Object> unCollectTbVideo(
+            Long userId,
+            Long videoId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbVideoService.unCollectionVideo(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
     }
 
 }
