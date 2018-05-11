@@ -154,6 +154,131 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
     }
 
     @Override
+    public List<HomePageVideoDTO> getOtherUsersHomePageVideo(Long userId, Long otherUserId) {
+        List<HomePageVideoDTO> homePageVideoDTOS = new ArrayList<>();
+
+        List<TbVideo> tbVideos = this.tbVideoMapper.selectHomePageVideoByUserId(otherUserId);
+
+        if (tbVideos == null || tbVideos.size() == 0) {
+            return homePageVideoDTOS;
+        }
+
+        for (TbVideo tbVideo : tbVideos) {
+            HomePageVideoDTO homePageVideoDTO = new HomePageVideoDTO();
+
+            TbVideoDTO tbVideoDTO = new TbVideoDTO();
+            tbVideoDTO.from(tbVideo);
+            tbVideoDTO.setVideourl(urlLinkPath + FILE_SEPARATOR + tbVideo.getVideourl());
+            tbVideoDTO.setVideoimage(urlLinkPath + FILE_SEPARATOR + tbVideo.getVideoimage());
+            homePageVideoDTO.setTbVideoDTO(tbVideoDTO);
+
+            List<TbCommentForVideo> tbCommentForVideos = this.tbCommentForVideoMapper.selectByVideoId(tbVideo.getVideoid());
+            homePageVideoDTO.setNumberOfComment(tbCommentForVideos.size());
+
+            TbCollection tbCollection = this.tbCollectionMapper.selectByVideoIdAndUserId(tbVideo.getVideoid(), userId);
+            if (null == tbCollection) {
+                homePageVideoDTO.setCollection(false);
+            } else {
+                homePageVideoDTO.setCollection(true);
+            }
+
+            TbLikeToVideo tbLikeToVideo = this.tbLikeToVideoMapper.selectByVideoIdAndUserId(userId, tbVideo.getVideoid());
+            if (tbLikeToVideo == null) {
+                homePageVideoDTO.setLike(false);
+            } else {
+                homePageVideoDTO.setLike(true);
+            }
+
+            TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(tbVideo.getUserid());
+            TbUserDTO tbUserDTO = new TbUserDTO();
+            tbUserDTO.from(tbUser);
+            tbUserDTO.setImage(urlLinkPath + FILE_SEPARATOR + tbUser.getImage());
+
+            List<TbFriends> erFriends = this.tbFriendsMapper.selectByUseredId(tbVideo.getUserid());
+
+            List<TbFriends> edFriends = this.tbFriendsMapper.selectByUsererId(tbVideo.getUserid());
+
+            tbUserDTO.setFocusers(erFriends.size());
+            tbUserDTO.setFocuseds(edFriends.size());
+
+            TbFriends tbFriends = this.tbFriendsMapper.selectByUsererIdAndUseredId(userId, tbVideo.getUserid());
+            if (tbFriends == null) {
+                tbUserDTO.setFocus(false);
+            } else {
+                tbUserDTO.setFocus(true);
+            }
+
+            homePageVideoDTO.setTbUserDTO(tbUserDTO);
+
+            homePageVideoDTOS.add(homePageVideoDTO);
+        }
+
+        return homePageVideoDTOS;
+    }
+
+    @Override
+    public List<HomePageVideoDTO> getCollectsHomePageVideo(Long userId, Long otherUserId) {
+
+        List<HomePageVideoDTO> homePageVideoDTOS = new ArrayList<>();
+
+        List<TbCollection> tbCollections = this.tbCollectionMapper.selectByUserId(otherUserId);
+
+        for (TbCollection tc: tbCollections) {
+            HomePageVideoDTO homePageVideoDTO = new HomePageVideoDTO();
+
+            TbVideo tbVideo = this.tbVideoMapper.selectByPrimaryKey(tc.getVideoid());
+
+            TbVideoDTO tbVideoDTO = new TbVideoDTO();
+            tbVideoDTO.from(tbVideo);
+            tbVideoDTO.setVideourl(urlLinkPath + FILE_SEPARATOR + tbVideo.getVideourl());
+            tbVideoDTO.setVideoimage(urlLinkPath + FILE_SEPARATOR + tbVideo.getVideoimage());
+            homePageVideoDTO.setTbVideoDTO(tbVideoDTO);
+
+            List<TbCommentForVideo> tbCommentForVideos = this.tbCommentForVideoMapper.selectByVideoId(tbVideo.getVideoid());
+            homePageVideoDTO.setNumberOfComment(tbCommentForVideos.size());
+
+            TbCollection tbCollection = this.tbCollectionMapper.selectByVideoIdAndUserId(tbVideo.getVideoid(), userId);
+            if (null == tbCollection) {
+                homePageVideoDTO.setCollection(false);
+            } else {
+                homePageVideoDTO.setCollection(true);
+            }
+
+            TbLikeToVideo tbLikeToVideo = this.tbLikeToVideoMapper.selectByVideoIdAndUserId(userId, tbVideo.getVideoid());
+            if (tbLikeToVideo == null) {
+                homePageVideoDTO.setLike(false);
+            } else {
+                homePageVideoDTO.setLike(true);
+            }
+
+            TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(tbVideo.getUserid());
+            TbUserDTO tbUserDTO = new TbUserDTO();
+            tbUserDTO.from(tbUser);
+            tbUserDTO.setImage(urlLinkPath + FILE_SEPARATOR + tbUser.getImage());
+
+            List<TbFriends> erFriends = this.tbFriendsMapper.selectByUseredId(tbVideo.getUserid());
+
+            List<TbFriends> edFriends = this.tbFriendsMapper.selectByUsererId(tbVideo.getUserid());
+
+            tbUserDTO.setFocusers(erFriends.size());
+            tbUserDTO.setFocuseds(edFriends.size());
+
+            TbFriends tbFriends = this.tbFriendsMapper.selectByUsererIdAndUseredId(userId, tbVideo.getUserid());
+            if (tbFriends == null) {
+                tbUserDTO.setFocus(false);
+            } else {
+                tbUserDTO.setFocus(true);
+            }
+
+            homePageVideoDTO.setTbUserDTO(tbUserDTO);
+
+            homePageVideoDTOS.add(homePageVideoDTO);
+        }
+
+        return homePageVideoDTOS;
+    }
+
+    @Override
     @Transactional
     public MessageDTO commentVideo(TbCommentForVideoDTO tbCommentForVideoDTO) {
 

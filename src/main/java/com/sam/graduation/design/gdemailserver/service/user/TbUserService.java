@@ -19,4 +19,6 @@ public interface TbUserService {
 
     MessageDTO focusUser(Long usererId, Long useredId);
 
+    TbUserDTO getUserDetail(Long userId, Long otherUserId);
+
 }

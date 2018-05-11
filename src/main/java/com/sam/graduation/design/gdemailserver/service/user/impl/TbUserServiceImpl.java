@@ -1,5 +1,6 @@
 package com.sam.graduation.design.gdemailserver.service.user.impl;
 
+import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbUserDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 import com.sam.graduation.design.gdemailserver.controller.pub.AppException;
@@ -9,13 +10,16 @@ import com.sam.graduation.design.gdemailserver.model.pojo.TbFriends;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbUser;
 import com.sam.graduation.design.gdemailserver.service.base.BaseService;
 import com.sam.graduation.design.gdemailserver.service.user.TbUserService;
+import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author sam199510 273045049@qq.com
@@ -34,6 +38,9 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
 
     @Autowired
     private TbFriendsMapper tbFriendsMapper;
+
+    @Resource
+    private TbVideoService tbVideoService;
 
     @Override
     public TbUserDTO userLogin(TbUserDTO tbUserDTO) {
@@ -167,6 +174,25 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
         messageDTO.setSuccess(true);
         messageDTO.setMessage("关注成功");
         return messageDTO;
+    }
+
+    @Override
+    public TbUserDTO getUserDetail(Long userId, Long otherUserId) {
+
+        TbUserDTO tbUserDTO = new TbUserDTO();
+
+        TbUser tbUser = this.tbUserMapper.selectByPrimaryKey(otherUserId);
+
+        tbUserDTO.from(tbUser);
+        tbUserDTO.setImage(urlLinkPath + FILE_SEPARATOR + tbUser.getImage());
+
+        List<HomePageVideoDTO> createsList = this.tbVideoService.getOtherUsersHomePageVideo(userId, otherUserId);
+        tbUserDTO.setCreateHomePageVideoDTOS(createsList);
+
+        List<HomePageVideoDTO> collectList = this.tbVideoService.getCollectsHomePageVideo(userId, otherUserId);
+        tbUserDTO.setCollectHomePageVideoDTOS(collectList);
+
+        return tbUserDTO;
     }
 
 

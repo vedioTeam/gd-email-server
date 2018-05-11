@@ -13,15 +13,13 @@ import org.apache.commons.io.FileUtils;
 import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -116,15 +114,15 @@ public class TbUserController extends BaseController {
         String imageOraName = headImage.getOriginalFilename();
         String imageFormat = imageOraName.toLowerCase().substring(imageOraName.lastIndexOf("."), imageOraName.length())
                 .toLowerCase();
-        String imageRelPath = "video"+FILE_SEPARATOR+"image"+ FILE_SEPARATOR + GDMSFileUtils.getTimePath()
-                +FILE_SEPARATOR+userId+ FILE_SEPARATOR + UUIDUtil.getUUIDWithoutLine() + imageFormat;
+        String imageRelPath = "video" + FILE_SEPARATOR + "image" + FILE_SEPARATOR + GDMSFileUtils.getTimePath()
+                + FILE_SEPARATOR + userId + FILE_SEPARATOR + UUIDUtil.getUUIDWithoutLine() + imageFormat;
 
         File headImageFile = Paths.get(fileRootPath, imageRelPath).toFile();
 
         try {
             FileUtils.copyToFile(headImage.getInputStream(), headImageFile);
         } catch (IOException e) {
-            logger.error("e:{}.",e);
+            logger.error("e:{}.", e);
         }
         TbUserDTO tbUserDTO = new TbUserDTO();
         tbUserDTO.setImage(imageRelPath);
@@ -133,7 +131,7 @@ public class TbUserController extends BaseController {
         try {
             messageDTO = this.tbUserService.userUpdate(tbUserDTO);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
 
         if (messageDTO == null) {
@@ -156,7 +154,7 @@ public class TbUserController extends BaseController {
         try {
             messageDTO = this.tbUserService.focusUser(usererId, useredId);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
         if (messageDTO == null) {
             return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
@@ -177,7 +175,7 @@ public class TbUserController extends BaseController {
         try {
             messageDTO = this.tbUserService.deleteByUsererIdAndUseredId(usererId, useredId);
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
         if (messageDTO == null) {
             return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
@@ -188,6 +186,22 @@ public class TbUserController extends BaseController {
         return this.success(messageDTO);
     }
 
+    @ApiOperation("其他用户模块用户详情")
+    @GetMapping("/tb/other/user/detail/@get")
+    public Map<String, Object> tbOtherUserDetail(
+            Long userId, Long otherUserId
+    ) {
+        TbUserDTO tbUserDTO = null;
+        try {
+            tbUserDTO = this.tbUserService.getUserDetail(userId, otherUserId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+        }
+        if (tbUserDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        return this.success(tbUserDTO);
+    }
 
 
 }

@@ -85,4 +85,9 @@
     where videoID = #{videoid,jdbcType=BIGINT}
     and userID = #{userid,jdbcType=BIGINT}
   </select>
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select *
+    from tb_collection
+    where userID = #{userid,jdbcType=BIGINT}
+  </select>
 </mapper>

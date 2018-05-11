@@ -3,6 +3,8 @@ package com.sam.graduation.design.gdemailserver.dao;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbCollection;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface TbCollectionMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -19,6 +21,10 @@ public interface TbCollectionMapper {
     TbCollection selectByVideoIdAndUserId(
             @Param("videoid") Long videoid,
             @Param("userid") Long userid
+    );
+
+    List<TbCollection> selectByUserId(
+            Long userid
     );
 
 }

@@ -17,6 +17,10 @@ public interface TbVideoService {
 
     List<HomePageVideoDTO> getHomePageVideo(Long userId);
 
+    List<HomePageVideoDTO> getOtherUsersHomePageVideo(Long userId, Long otherUserId);
+
+    List<HomePageVideoDTO> getCollectsHomePageVideo(Long userId, Long otherUserId);
+
     MessageDTO commentVideo(TbCommentForVideoDTO tbCommentForVideoDTO);
 
     List<TbCommentForVideoDTO> getTbCommentFoeVideo(Long userId, Long videoId);

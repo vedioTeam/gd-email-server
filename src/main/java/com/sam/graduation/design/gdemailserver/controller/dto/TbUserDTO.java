@@ -4,6 +4,7 @@ import com.sam.graduation.design.gdemailserver.model.pojo.TbUser;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author sam199510 273045049@qq.com
@@ -30,6 +31,26 @@ public class TbUserDTO {
     private Integer focuseds;
 
     private Boolean isFocus;
+
+    private List<HomePageVideoDTO> collectHomePageVideoDTOS;
+
+    private List<HomePageVideoDTO> createHomePageVideoDTOS;
+
+    public List<HomePageVideoDTO> getCollectHomePageVideoDTOS() {
+        return collectHomePageVideoDTOS;
+    }
+
+    public void setCollectHomePageVideoDTOS(List<HomePageVideoDTO> collectHomePageVideoDTOS) {
+        this.collectHomePageVideoDTOS = collectHomePageVideoDTOS;
+    }
+
+    public List<HomePageVideoDTO> getCreateHomePageVideoDTOS() {
+        return createHomePageVideoDTOS;
+    }
+
+    public void setCreateHomePageVideoDTOS(List<HomePageVideoDTO> createHomePageVideoDTOS) {
+        this.createHomePageVideoDTOS = createHomePageVideoDTOS;
+    }
 
     public Boolean getFocus() {
         return isFocus;

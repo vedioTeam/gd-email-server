@@ -130,4 +130,10 @@
       <include refid="Base_Column_List"/>
     from tb_video
   </select>
+  <select id="selectHomePageVideoByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from tb_video
+    where userID = #{userid,jdbcType=BIGINT}
+  </select>
 </mapper>

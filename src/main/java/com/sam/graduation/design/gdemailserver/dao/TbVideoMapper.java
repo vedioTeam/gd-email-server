@@ -1,6 +1,7 @@
 package com.sam.graduation.design.gdemailserver.dao;
 
 import com.sam.graduation.design.gdemailserver.model.pojo.TbVideo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,9 @@ public interface TbVideoMapper {
     int updateByPrimaryKey(TbVideo record);
 
     List<TbVideo> selectHomePageVideo();
+
+    List<TbVideo> selectHomePageVideoByUserId(
+            @Param("userid") Long userId
+    );
+
 }
