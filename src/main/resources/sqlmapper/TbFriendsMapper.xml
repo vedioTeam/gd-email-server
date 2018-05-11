@@ -95,4 +95,10 @@
     where usererId = #{usererid,jdbcType=BIGINT}
     and useredId = #{useredid,jdbcType=BIGINT}
   </select>
+  <delete id="deleteByUsererIdAndUseredId" parameterType="java.util.Map">
+    delete *
+    from tb_friends
+    where usererId = #{usererid,jdbcType=BIGINT}
+    and useredId = #{useredid,jdbcType=BIGINT}
+  </delete>
 </mapper>

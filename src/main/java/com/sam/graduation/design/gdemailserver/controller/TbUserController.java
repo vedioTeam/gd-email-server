@@ -146,4 +146,48 @@ public class TbUserController extends BaseController {
 
     }
 
+    @ApiOperation("关注用户")
+    @PostMapping("/tb/friends/@focus")
+    public Map<String, Object> tbFriendsFocus(
+            @RequestParam("usererId") Long usererId,
+            @RequestParam("useredId") Long useredId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbUserService.focusUser(usererId, useredId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+    @ApiOperation("关注用户")
+    @PostMapping("/tb/friends/@unfocus")
+    public Map<String, Object> tbFriendsUnFocus(
+            @RequestParam("usererId") Long usererId,
+            @RequestParam("useredId") Long useredId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbUserService.deleteByUsererIdAndUseredId(usererId, useredId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+
+
 }

@@ -27,4 +27,9 @@ public interface TbFriendsMapper {
             @Param("useredid") Long useredid
     );
 
+    int deleteByUsererIdAndUseredId(
+            @Param("usererid") Long usererid,
+            @Param("useredid") Long useredid
+    );
+
 }

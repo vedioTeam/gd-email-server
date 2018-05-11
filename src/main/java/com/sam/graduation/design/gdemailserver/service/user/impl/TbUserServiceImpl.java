@@ -3,7 +3,9 @@ package com.sam.graduation.design.gdemailserver.service.user.impl;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbUserDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
 import com.sam.graduation.design.gdemailserver.controller.pub.AppException;
+import com.sam.graduation.design.gdemailserver.dao.TbFriendsMapper;
 import com.sam.graduation.design.gdemailserver.dao.TbUserMapper;
+import com.sam.graduation.design.gdemailserver.model.pojo.TbFriends;
 import com.sam.graduation.design.gdemailserver.model.pojo.TbUser;
 import com.sam.graduation.design.gdemailserver.service.base.BaseService;
 import com.sam.graduation.design.gdemailserver.service.user.TbUserService;
@@ -29,6 +31,9 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
 
     @Autowired
     private TbUserMapper tbUserMapper;
+
+    @Autowired
+    private TbFriendsMapper tbFriendsMapper;
 
     @Override
     public TbUserDTO userLogin(TbUserDTO tbUserDTO) {
@@ -95,10 +100,10 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
         try {
             result = this.tbUserMapper.updateByPrimaryKeySelective(tbUserDTO.to());
         } catch (Exception e) {
-            logger.error("e:{}",e);
+            logger.error("e:{}", e);
         }
 
-        if (result == 0 ) {
+        if (result == 0) {
             messageDTO.setSuccess(false);
             messageDTO.setMessage("修改信息失败");
             return messageDTO;
@@ -108,4 +113,61 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
         messageDTO.setMessage("更新信息成功");
         return messageDTO;
     }
+
+    @Override
+    public MessageDTO deleteByUsererIdAndUseredId(Long usererId, Long useredId) {
+        MessageDTO messageDTO = null;
+
+        int result = 0;
+        try {
+            result = this.tbFriendsMapper.deleteByUsererIdAndUseredId(usererId, useredId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("取消关注异常");
+        }
+
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("取消关注错误");
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setSuccess(true);
+        messageDTO.setMessage("取消关注成功");
+        return messageDTO;
+    }
+
+    @Override
+    public MessageDTO focusUser(Long usererId, Long useredId) {
+
+        MessageDTO messageDTO = null;
+
+        int result = 0;
+
+        TbFriends tbFriends = new TbFriends();
+        tbFriends.setFocustime(new Date());
+        tbFriends.setUseredid(useredId);
+        tbFriends.setUsererid(usererId);
+
+        try {
+            result = this.tbFriendsMapper.insert(tbFriends);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("关注异常");
+        }
+
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setMessage("关注错误");
+            messageDTO.setSuccess(false);
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setSuccess(true);
+        messageDTO.setMessage("关注成功");
+        return messageDTO;
+    }
+
+
 }

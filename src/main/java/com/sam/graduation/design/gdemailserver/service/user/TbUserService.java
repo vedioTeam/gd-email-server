@@ -15,4 +15,8 @@ public interface TbUserService {
 
     MessageDTO userUpdate(TbUserDTO tbUserDTO);
 
+    MessageDTO deleteByUsererIdAndUseredId(Long usererId, Long useredId);
+
+    MessageDTO focusUser(Long usererId, Long useredId);
+
 }
