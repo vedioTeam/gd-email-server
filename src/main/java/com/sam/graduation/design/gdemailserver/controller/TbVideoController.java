@@ -1,6 +1,7 @@
 package com.sam.graduation.design.gdemailserver.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Collections2;
 import com.sam.graduation.design.gdemailserver.constvalue.ServiceResultType;
 import com.sam.graduation.design.gdemailserver.controller.base.BaseController;
 import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
@@ -214,6 +215,18 @@ public class TbVideoController extends BaseController {
             return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
         }
         return this.success(messageDTO);
+    }
+
+    @ApiOperation("我的收藏视频列表")
+    @GetMapping("/tb/video/collect/list/@get")
+    public Map<String, Object> tbVideoCollectList(
+            Long userId
+    ) {
+        List<HomePageVideoDTO> homePageVideoDTOS = this.tbVideoService.getCollectsHomePageVideo(userId, userId);
+        if (homePageVideoDTOS == null || homePageVideoDTOS.size()==0){
+            return this.success(new ArrayList<>());
+        }
+        return this.success(homePageVideoDTOS);
     }
 
 }
