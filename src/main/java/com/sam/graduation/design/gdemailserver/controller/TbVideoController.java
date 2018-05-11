@@ -8,6 +8,7 @@ import com.sam.graduation.design.gdemailserver.controller.dto.HomePageVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbCommentForVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.TbVideoDTO;
 import com.sam.graduation.design.gdemailserver.controller.dto.message.MessageDTO;
+import com.sam.graduation.design.gdemailserver.service.comment.TbCommentService;
 import com.sam.graduation.design.gdemailserver.service.video.TbVideoService;
 import com.sam.graduation.design.gdemailserver.utils.GDMSFileUtils;
 import com.sam.graduation.design.gdemailserver.utils.UUIDUtil;
@@ -43,6 +44,9 @@ public class TbVideoController extends BaseController {
 
     @Autowired
     private TbVideoService tbVideoService;
+
+    @Autowired
+    private TbCommentService tbCommentService;
 
     @ApiOperation("用户上传视频接口")
     @PostMapping("/tb/video/@upload")
@@ -227,6 +231,48 @@ public class TbVideoController extends BaseController {
             return this.success(new ArrayList<>());
         }
         return this.success(homePageVideoDTOS);
+    }
+
+    @ApiOperation("点赞视频评论")
+    @PostMapping("/tb/video/comment/@like")
+    public Map<String, Object> likeTbVideoComment(
+            Long userId,
+            Long commentId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbCommentService.likeToComment(userId, commentId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+    @ApiOperation("取消点赞视频评论")
+    @PostMapping("/tb/video/comment/@like")
+    public Map<String, Object> unlikeTbVideoComment(
+            Long userId,
+            Long commentId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbCommentService.unlikeToComment(userId, commentId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
     }
 
 }

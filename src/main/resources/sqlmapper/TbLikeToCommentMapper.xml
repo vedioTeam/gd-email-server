@@ -92,4 +92,10 @@
     and userID = #{userid,jdbcType=BIGINT}
   </select>
 
+  <delete id="deleteByUserIdAndCommentId">
+    delete from tb_likeToComment
+    where commentID = #{commentId,jdbcType=BIGINT}
+    and userID = #{userId,jdbcType=BIGINT}
+  </delete>
+
 </mapper>

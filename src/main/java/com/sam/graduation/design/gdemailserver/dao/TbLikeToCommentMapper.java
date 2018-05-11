@@ -25,4 +25,9 @@ public interface TbLikeToCommentMapper {
             @Param("userid") Long userid
     );
 
+    int deleteByUserIdAndCommentId(
+            @Param("userId") Long userId,
+            @Param("commentId") Long commentId
+    );
+
 }
