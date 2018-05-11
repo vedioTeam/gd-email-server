@@ -374,7 +374,7 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
         messageDTO = new MessageDTO();
         messageDTO.setSuccess(true);
         messageDTO.setMessage("收藏视频成功");
-        return null;
+        return messageDTO;
     }
 
     @Override
@@ -395,6 +395,56 @@ public class TbVideoServiceImpl extends BaseService implements TbVideoService {
         }
         messageDTO = new MessageDTO();
         messageDTO.setMessage("取消收藏视频成功");
+        messageDTO.setSuccess(true);
+        return messageDTO;
+    }
+
+    @Override
+    public MessageDTO likeVideo(Long userId, Long videoId) {
+        MessageDTO messageDTO = null;
+
+        TbLikeToVideo tbCollection = new TbLikeToVideo();
+        tbCollection.setCreattime(new Date());
+        tbCollection.setUserid(userId);
+        tbCollection.setVideoid(videoId);
+
+        int result = 0;
+        try {
+            result = this.tbLikeToVideoMapper.insertSelective(tbCollection);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("点赞视频异常");
+        }
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("点赞视频失败");
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setSuccess(true);
+        messageDTO.setMessage("点赞视频成功");
+        return messageDTO;
+    }
+
+    @Override
+    public MessageDTO unlikeVideo(Long userId, Long videoId) {
+        MessageDTO messageDTO = null;
+        int result = 0;
+        try {
+            result = this.tbLikeToVideoMapper.deleteByUserIdAndVideoId(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}", e);
+            throw new AppException("取消点赞视频异常");
+        }
+        if (result == 0) {
+            messageDTO = new MessageDTO();
+            messageDTO.setSuccess(false);
+            messageDTO.setMessage("取消点赞视频失败");
+            return messageDTO;
+        }
+        messageDTO = new MessageDTO();
+        messageDTO.setMessage("取消点赞视频成功");
         messageDTO.setSuccess(true);
         return messageDTO;
     }

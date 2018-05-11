@@ -85,4 +85,11 @@
     where userID = #{userid,jdbcType=BIGINT}
     and videoID = #{videoid,jdbcType=BIGINT}
   </select>
+
+  <delete id="deleteByUserIdAndVideoId" parameterType="java.util.Map">
+    delete from tb_likeToVideo
+    where userID = #{userId,jdbcType=BIGINT}
+    and videoID = #{videoId,jdbcType=BIGINT}
+  </delete>
+
 </mapper>

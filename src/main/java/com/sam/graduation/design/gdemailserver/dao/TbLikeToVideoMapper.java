@@ -21,4 +21,9 @@ public interface TbLikeToVideoMapper {
             @Param("videoid") Long videoid
     );
 
+    int deleteByUserIdAndVideoId(
+            @Param("userId") Long userId,
+            @Param("videoId") Long videoId
+    );
+
 }

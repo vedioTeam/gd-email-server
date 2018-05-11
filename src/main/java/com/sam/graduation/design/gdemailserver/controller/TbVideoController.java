@@ -255,7 +255,7 @@ public class TbVideoController extends BaseController {
     }
 
     @ApiOperation("取消点赞视频评论")
-    @PostMapping("/tb/video/comment/@like")
+    @PostMapping("/tb/video/comment/@unlike")
     public Map<String, Object> unlikeTbVideoComment(
             Long userId,
             Long commentId
@@ -263,6 +263,48 @@ public class TbVideoController extends BaseController {
         MessageDTO messageDTO = null;
         try {
             messageDTO = this.tbCommentService.unlikeToComment(userId, commentId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+    @ApiOperation("点赞视频")
+    @PostMapping("/tb/video/@like")
+    public Map<String, Object> likeTbVideo(
+            Long userId,
+            Long videoId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbVideoService.likeVideo(userId, videoId);
+        } catch (Exception e) {
+            logger.error("e:{}",e);
+        }
+        if (messageDTO == null) {
+            return this.error("系统异常", ServiceResultType.RESULT_TYPE_SYSTEM_ERROR);
+        }
+        if (!messageDTO.getSuccess()) {
+            return this.error(messageDTO.getMessage(), ServiceResultType.RESULT_TYPE_SERVICE_ERROR);
+        }
+        return this.success(messageDTO);
+    }
+
+    @ApiOperation("取消点赞视频")
+    @PostMapping("/tb/video/@unlike")
+    public Map<String, Object> unlikeTbVideo(
+            Long userId,
+            Long videoId
+    ) {
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = this.tbVideoService.unlikeVideo(userId, videoId);
         } catch (Exception e) {
             logger.error("e:{}",e);
         }

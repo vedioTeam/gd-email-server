@@ -29,4 +29,8 @@ public interface TbVideoService {
 
     MessageDTO unCollectionVideo(Long userId, Long videoId);
 
+    MessageDTO likeVideo(Long userId, Long videoId);
+
+    MessageDTO unlikeVideo(Long userId, Long videoId);
+
 }
