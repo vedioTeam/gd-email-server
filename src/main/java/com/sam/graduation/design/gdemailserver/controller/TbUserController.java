@@ -189,7 +189,8 @@ public class TbUserController extends BaseController {
     @ApiOperation("其他用户模块用户详情")
     @GetMapping("/tb/other/user/detail/@get")
     public Map<String, Object> tbOtherUserDetail(
-            Long userId, Long otherUserId
+            @RequestParam("userId")  Long userId,
+            @RequestParam("otherUserId") Long otherUserId
     ) {
         TbUserDTO tbUserDTO = null;
         try {
