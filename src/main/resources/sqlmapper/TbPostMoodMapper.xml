@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="creatTime" jdbcType="VARCHAR" property="creattime" />
+    <result column="creatTime" jdbcType="TIMESTAMP" property="creattime" />
     <result column="imageUrl" jdbcType="VARCHAR" property="imageurl" />
-    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="userID" jdbcType="BIGINT" property="userid" />
   </resultMap>
   <sql id="Base_Column_List">
     id, content, creatTime, imageUrl, userID
@@ -24,8 +24,8 @@
   <insert id="insert" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     insert into tb_postMood (id, content, creatTime, 
       imageUrl, userID)
-    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{creattime,jdbcType=VARCHAR}, 
-      #{imageurl,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER})
+    values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{creattime,jdbcType=TIMESTAMP}, 
+      #{imageurl,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     insert into tb_postMood
@@ -54,13 +54,13 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="creattime != null">
-        #{creattime,jdbcType=VARCHAR},
+        #{creattime,jdbcType=TIMESTAMP},
       </if>
       <if test="imageurl != null">
         #{imageurl,jdbcType=VARCHAR},
       </if>
       <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -71,13 +71,13 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="creattime != null">
-        creatTime = #{creattime,jdbcType=VARCHAR},
+        creatTime = #{creattime,jdbcType=TIMESTAMP},
       </if>
       <if test="imageurl != null">
         imageUrl = #{imageurl,jdbcType=VARCHAR},
       </if>
       <if test="userid != null">
-        userID = #{userid,jdbcType=INTEGER},
+        userID = #{userid,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -85,9 +85,14 @@
   <update id="updateByPrimaryKey" parameterType="com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood">
     update tb_postMood
     set content = #{content,jdbcType=VARCHAR},
-      creatTime = #{creattime,jdbcType=VARCHAR},
+      creatTime = #{creattime,jdbcType=TIMESTAMP},
       imageUrl = #{imageurl,jdbcType=VARCHAR},
-      userID = #{userid,jdbcType=INTEGER}
+      userID = #{userid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM tb_postMood
+  </select>
 </mapper>
