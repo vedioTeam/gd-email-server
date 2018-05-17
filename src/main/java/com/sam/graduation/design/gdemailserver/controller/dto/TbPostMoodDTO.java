@@ -1,8 +1,11 @@
-package com.sam.graduation.design.gdemailserver.model.pojo;
+package com.sam.graduation.design.gdemailserver.controller.dto;
+
+import com.sam.graduation.design.gdemailserver.model.pojo.TbPostMood;
 
 import java.util.Date;
 
-public class TbPostMood {
+public class TbPostMoodDTO {
+
     private Long id;
 
     private String content;
@@ -12,6 +15,24 @@ public class TbPostMood {
     private String imageurl;
 
     private Long userid;
+
+    private TbUserDTO tbUserDTO;
+
+    public void from(TbPostMood tbPostMood) {
+        this.id = tbPostMood.getId();
+        this.content = tbPostMood.getContent();
+        this.creattime = tbPostMood.getCreattime();
+        this.imageurl = tbPostMood.getImageurl();
+        this.userid = tbPostMood.getUserid();
+    }
+
+    public TbUserDTO getTbUserDTO() {
+        return tbUserDTO;
+    }
+
+    public void setTbUserDTO(TbUserDTO tbUserDTO) {
+        this.tbUserDTO = tbUserDTO;
+    }
 
     public Long getId() {
         return id;
@@ -26,7 +47,7 @@ public class TbPostMood {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Date getCreattime() {
@@ -42,7 +63,7 @@ public class TbPostMood {
     }
 
     public void setImageurl(String imageurl) {
-        this.imageurl = imageurl == null ? null : imageurl.trim();
+        this.imageurl = imageurl;
     }
 
     public Long getUserid() {

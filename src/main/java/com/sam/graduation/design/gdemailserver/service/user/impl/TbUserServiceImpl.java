@@ -192,6 +192,13 @@ public class TbUserServiceImpl extends BaseService implements TbUserService {
         List<HomePageVideoDTO> collectList = this.tbVideoService.getCollectsHomePageVideo(userId, otherUserId);
         tbUserDTO.setCollectHomePageVideoDTOS(collectList);
 
+        List<TbFriends> tbFocusers = this.tbFriendsMapper.selectByUsererId(otherUserId);
+
+        List<TbFriends> tbFocuseds = this.tbFriendsMapper.selectByUseredId(otherUserId);
+
+        tbUserDTO.setFocusers(tbFocusers.size());
+        tbUserDTO.setFocuseds(tbFocuseds.size());
+
         TbFriends tbFriends = this.tbFriendsMapper.selectByUsererIdAndUseredId(otherUserId, userId);
         if (tbFriends == null) {
             tbUserDTO.setFocus(false);

@@ -52,11 +52,11 @@
         <!--</table>-->
 
         <!--<table schema="springboot-test" tableName="tb_postMood" domainObjectName="TbPostMood"-->
-        <!--enableCountByExample="false"-->
-        <!--enableUpdateByExample="false"-->
-        <!--enableDeleteByExample="false"-->
-        <!--enableSelectByExample="false"-->
-        <!--selectByExampleQueryId="false">-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
         <!--</table>-->
 
         <!--<table schema="springboot-test" tableName="tb_user" domainObjectName="TbUser"-->
